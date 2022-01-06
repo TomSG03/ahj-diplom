@@ -5,11 +5,39 @@ export default class Chat {
   constructor(domElmt) {
     this.domElmt = domElmt;
     this.message = {};
+    this.row = this.domElmt.querySelector('.content-row');
   }
 
   btnTest() {
-    const row = this.domElmt.querySelector('.content-row');
-    row.scrollTop = row.scrollHeight;
+    this.row.addEventListener('click', (e) => {
+      if (e.target.classList.contains('mess-img') && e.target.dataset.type === 'img') {
+        e.target.classList.toggle('big-img');
+      }
+    });
+
+    this.domElmt.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    this.domElmt.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e.target.style.cursor = '';
+      for (let i = 0; i < e.dataTransfer.files.length; i += 1) {
+        const reader = new FileReader();
+        reader.readAsDataURL(e.dataTransfer.files[i]);
+        reader.onloadend = () => {
+          const img = document.createElement('img');
+          img.className = 'mess-img';
+          img.dataset.type = 'img';
+          img.src = reader.result;
+          this.message.type = 'img';
+          this.message.content = img;
+          const elm = Work.createElm(this.message, Data.getTime());
+          this.row.append(elm);
+          this.row.scrollTop = this.row.scrollHeight;
+        };
+      }
+    });
 
     const button = this.domElmt.querySelector('.buttonAsk');
     button.addEventListener('click', (e) => {
@@ -23,11 +51,35 @@ export default class Chat {
           this.message.type = 'text';
           this.message.content = ask.value;
         }
-        row.innerHTML += Work.messHTML(this.message, Data.getTime());
-        row.scrollTop = row.scrollHeight;
+        this.row.innerHTML += Work.messHTML(this.message, Data.getTime());
+        this.row.scrollTop = this.row.scrollHeight;
         ask.value = '';
         e.preventDefault();
       }
+      this.row.scrollTop = this.row.scrollHeight;
+    });
+
+    const clip = this.domElmt.querySelector('.clip');
+    clip.addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'audio/*, image/*, video/*';
+      input.click();
+      input.oninput = (e) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onloadend = () => {
+          const img = document.createElement('img');
+          img.className = 'mess-img';
+          img.dataset.type = 'img';
+          img.src = reader.result;
+          this.message.type = 'img';
+          this.message.content = img;
+          const elm = Work.createElm(this.message, Data.getTime());
+          this.row.append(elm);
+          this.row.scrollTop = this.row.scrollHeight;
+        };
+      };
     });
   }
 }

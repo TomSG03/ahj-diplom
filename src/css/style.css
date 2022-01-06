@@ -69,17 +69,18 @@ nav {
   z-index: 5;
   /* display: flex;
   justify-content: flex-end; */
-  max-width: 70%;
+  max-width: 90%;
   border-style: solid;
-  padding: 15px 15px 2px 15px;
+  padding: 5px 5px 2px 5px;
   background-color: #056162;
   color: #e5eaeb;
   font-size: 1.1rem;
   word-wrap: break-word;
+  overflow: hidden;
 }
 
 .mess-user-body {
-  padding: 0 40px 8px 0;
+  padding: 0 20px 4px 0;
 
 }
 
@@ -87,6 +88,18 @@ nav {
   color: #68bbe4;
   text-decoration: none;
 }
+
+.mess-img {
+  min-width: 100px;
+	max-width: 200px;
+	/* height: 160px; */
+  border-radius: 5px;
+}
+
+.big-img {
+	max-width: 100%;
+}
+
 
 .time-stp {
   color: #828689;
@@ -150,7 +163,7 @@ input {
 }
 
 .buttonAsk {
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   background-size: 40px;
   background-position: center center;
   height: 48px;
@@ -165,6 +178,9 @@ input {
 .clip {
   margin: 0 10px;
   cursor: pointer;
+  color: #828689;
+  background-color: #2a2f32;
+  border: none;
 }
 
 .message {

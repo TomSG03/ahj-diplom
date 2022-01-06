@@ -67,14 +67,31 @@ nav {
 
 .element {
   z-index: 5;
-  display: flex;
-  justify-content: flex-end;
+  /* display: flex;
+  justify-content: flex-end; */
   max-width: 70%;
   border-style: solid;
-  padding: 15px;
+  padding: 15px 15px 2px 15px;
   background-color: #056162;
   color: #e5eaeb;
   font-size: 1.1rem;
+  word-wrap: break-word;
+}
+
+.mess-user-body {
+  padding: 0 40px 8px 0;
+
+}
+
+.mess-link {
+  color: #68bbe4;
+  text-decoration: none;
+}
+
+.time-stp {
+  color: #828689;
+  font-size: 0.8rem;
+  text-align: right;
 }
 
 .row {

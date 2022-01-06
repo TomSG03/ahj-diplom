@@ -16,7 +16,6 @@ export default class Work {
 
   static createLink(str, arrLink) {
     const strArr = str.split(' ');
-    console.log(strArr);
     for (let i = 0; i < strArr.length; i += 1) {
       const index = arrLink.indexOf(strArr[i]);
       if (index !== -1) {

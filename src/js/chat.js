@@ -10,7 +10,7 @@ export default class Chat {
 
   btnTest() {
     this.row.addEventListener('click', (e) => {
-      if (e.target.classList.contains('mess-img') && e.target.dataset.type === 'img') {
+      if (e.target.classList.contains('mess-img') && (e.target.dataset.type === 'image' || e.target.dataset.type === 'video')) {
         e.target.classList.toggle('big-img');
       }
     });
@@ -67,14 +67,20 @@ export default class Chat {
       input.click();
       input.oninput = (e) => {
         const reader = new FileReader();
+        const type = e.target.files[0].type.slice(0, 5);
+        const typeElm = type === 'image' ? 'img' : type;
+
         reader.readAsDataURL(e.target.files[0]);
         reader.onloadend = () => {
-          const img = document.createElement('img');
-          img.className = 'mess-img';
-          img.dataset.type = 'img';
-          img.src = reader.result;
-          this.message.type = 'img';
-          this.message.content = img;
+          const media = document.createElement(typeElm);
+          media.className = 'mess-img';
+          media.dataset.type = type;
+          media.src = reader.result;
+          if (type !== 'image') {
+            media.controls = true;
+          }
+          this.message.type = type;
+          this.message.content = media;
           const elm = Work.createElm(this.message, Data.getTime());
           this.row.append(elm);
           this.row.scrollTop = this.row.scrollHeight;
